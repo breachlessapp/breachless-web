@@ -51,9 +51,9 @@ export default function HomePage() {
     }
   };
 
+  
   const derivedScore = result?.summary.score ?? null;
-  const derivedLetter = result?.summary.letter_grade ?? null;
-
+  const derivedLetter = result?.summary.letter_grade ?? undefined;
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 flex items-center justify-center px-4 py-10">
       <div className="w-full max-w-5xl rounded-3xl border border-slate-800 bg-gradient-to-br from-slate-950 via-slate-950/95 to-slate-950/80 shadow-2xl shadow-slate-900/90 p-6 md:p-10 relative overflow-hidden">
@@ -187,8 +187,9 @@ export default function HomePage() {
                     )}
                   </div>
                   <div className="inline-flex items-center gap-2 rounded-full bg-emerald-500/10 px-3 py-1 text-[11px] text-emerald-200 border border-emerald-400/60">
-                    <span className="inline-flex h-5 w-5 items-center justify-center rounded-full border border-emerald-200 bg-emerald-500 text-xs font-semibold text-emerald-950 shadow-[0_0_10px_rgba(16,185,129,0.8)]">
-                      {derivedLetter || "A"}
+                    
+                    <span className="...">
+                      {result ? (derivedLetter ?? "C") : "A"}
                     </span>
                     <span>Overall score</span>
                   </div>
@@ -266,7 +267,7 @@ export default function HomePage() {
                       <p className="text-[11px] text-slate-300">
                         Your current setup scored{" "}
                         <span className="font-semibold text-slate-50">
-                          {derivedLetter || "A"}
+                          {result ? (derivedLetter ?? "C") : "A"}
                           {derivedScore !== null ? ` (${derivedScore}/100)` : ""}
                         </span>
                         . We’ve prioritised a short checklist of fixes your
