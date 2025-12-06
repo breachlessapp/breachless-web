@@ -109,9 +109,7 @@ export default function HomePage() {
   };
 
   const computed =
-    result && result.summary
-      ? computeScoreAndLetter(result.summary)
-      : null;
+    result && result.summary ? computeScoreAndLetter(result.summary) : null;
   const derivedScore = computed?.score ?? null;
   const derivedLetter = computed?.letter ?? undefined;
 
@@ -394,6 +392,64 @@ export default function HomePage() {
               </p>
             </aside>
           </div>
+
+          {/* What is Breachless? */}
+          <section className="mt-4 rounded-3xl border border-slate-800 bg-slate-950/80 p-6 md:p-8 shadow-[0_0_40px_rgba(15,23,42,0.85)]">
+            <h2 className="text-xl md:text-2xl font-semibold text-slate-50 mb-3">
+              What is Breachless?
+            </h2>
+
+            <p className="text-sm text-slate-300 leading-relaxed mb-4">
+              Breachless is an automated website security audit tool built for
+              startups, small teams, and solo founders. It performs a fast,
+              lightweight scan of your public website and generates a clear,
+              human-readable security score from A–F.
+            </p>
+
+            <div className="grid md:grid-cols-2 gap-5 mt-6">
+              <div className="rounded-2xl border border-slate-800 bg-slate-950/90 p-5">
+                <h3 className="text-sm font-semibold text-blue-300 mb-2">
+                  🛡️ What Breachless checks
+                </h3>
+                <ul className="text-sm text-slate-300 space-y-1.5">
+                  <li>• SSL validity, issuer, expiry date & days remaining</li>
+                  <li>• HTTPS configuration & redirect behaviour</li>
+                  <li>
+                    • Six core security headers (CSP, HSTS, X-Frame-Options,
+                    etc.)
+                  </li>
+                  <li>• Basic misconfigurations that put users at risk</li>
+                </ul>
+              </div>
+
+              <div className="rounded-2xl border border-slate-800 bg-slate-950/90 p-5">
+                <h3 className="text-sm font-semibold text-emerald-300 mb-2">
+                  🚫 What Breachless does NOT do
+                </h3>
+                <ul className="text-sm text-slate-300 space-y-1.5">
+                  <li>• No deep penetration testing</li>
+                  <li>• No invasive scanning or crawling</li>
+                  <li>• No access to private servers or internal code</li>
+                  <li>• Does not store sensitive data</li>
+                </ul>
+              </div>
+            </div>
+
+            <p className="mt-6 text-sm text-slate-400">
+              It’s a simple, fast way to understand your website’s security
+              posture and catch easy-to-fix issues before they become real
+              risks.
+            </p>
+
+            <div className="mt-6">
+              <Link
+                href="/pricing"
+                className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-blue-500 to-blue-600 px-5 py-2.5 text-sm font-medium text-white shadow-lg shadow-blue-500/50 hover:brightness-110 transition"
+              >
+                See pricing &amp; Pro features →
+              </Link>
+            </div>
+          </section>
         </div>
       </div>
     </div>
