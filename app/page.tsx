@@ -66,27 +66,35 @@ export default function HomePage() {
         <div className="relative z-10 space-y-8">
           {/* Top bar / logo */}
           <header className="flex items-center justify-between gap-3">
-            <div className="flex items-center gap-3">
-              <div className="h-9 w-9 rounded-full bg-gradient-to-tr from-blue-500 via-cyan-400 to-emerald-400 p-[2px] shadow-lg shadow-blue-500/60">
-                <div className="h-full w-full rounded-full bg-slate-950 flex items-center justify-center">
-                  <div className="h-4 w-4 rounded-full border border-blue-300/70 shadow-[0_0_8px_rgba(59,130,246,0.9)]" />
-                </div>
-              </div>
-              <div className="flex flex-col leading-tight">
-                <span className="text-xs uppercase tracking-[0.22em] text-slate-300">
-                  Breachless
-                </span>
-                <span className="text-[11px] text-slate-500">
-                  Automated website security audit
-                </span>
-              </div>
-            </div>
+  <div className="flex items-center gap-3">
+    <div className="h-9 w-9 rounded-full bg-gradient-to-tr from-blue-500 via-cyan-400 to-emerald-400 p-[2px] shadow-lg shadow-blue-500/60">
+      <div className="h-full w-full rounded-full bg-slate-950 flex items-center justify-center">
+        <div className="h-4 w-4 rounded-full border border-blue-300/70 shadow-[0_0_8px_rgba(59,130,246,0.9)]" />
+      </div>
+    </div>
+    <div className="flex flex-col leading-tight">
+      <span className="text-xs uppercase tracking-[0.22em] text-slate-300">
+        Breachless
+      </span>
+      <span className="text-[11px] text-slate-500">
+        Automated website security audit
+      </span>
+    </div>
+  </div>
 
-            <div className="inline-flex items-center gap-2 rounded-full border border-slate-700 bg-slate-900/70 px-3 py-1 text-[11px] text-slate-300 backdrop-blur">
-              <span className="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.9)]" />
-              <span>Instant, self-serve security insights</span>
-            </div>
-          </header>
+  <div className="flex items-center gap-3">
+    <div className="hidden sm:inline-flex items-center gap-2 rounded-full border border-slate-700 bg-slate-900/70 px-3 py-1 text-[11px] text-slate-300 backdrop-blur">
+      <span className="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.9)]" />
+      <span>Instant, self-serve security insights</span>
+    </div>
+    <a
+      href="/pricing"
+      className="rounded-full border border-slate-700 bg-slate-950/70 px-3 py-1 text-[11px] text-slate-200 hover:border-slate-500 hover:text-slate-50 transition"
+    >
+      Pricing
+    </a>
+  </div>
+</header>
 
           {/* Main content grid */}
           <div className="grid gap-8 md:grid-cols-[minmax(0,3fr)_minmax(0,2.5fr)] items-start">
