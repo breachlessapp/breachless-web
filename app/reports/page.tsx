@@ -2,10 +2,15 @@ import Link from "next/link";
 
 const SAMPLE_DOMAINS = [
   "reddit.com",
-  "hellosarah.ai",
-  "browser-use.com",
-  "joinergo.com",
-  "artifact.engineer",
+  "github.com",
+  "notion.so",
+  "openai.com",
+  "ycombinator.com",
+  "producthunt.com",
+  "news.ycombinator.com",
+  "stripe.com",
+  "vercel.com",
+  "cloudflare.com",
 ];
 
 export default function ReportsIndexPage() {

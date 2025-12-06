@@ -14,13 +14,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })
   );
 
-  // Sample high-value domains (same as /reports page)
+  // High-value sample domains
   const sampleDomains = [
     "reddit.com",
-    "hellosarah.ai",
-    "browser-use.com",
-    "joinergo.com",
-    "artifact.engineer",
+    "github.com",
+    "notion.so",
+    "openai.com",
+    "ycombinator.com",
+    "producthunt.com",
+    "news.ycombinator.com",
+    "stripe.com",
+    "vercel.com",
+    "cloudflare.com",
   ];
 
   const reportRoutes: MetadataRoute.Sitemap = sampleDomains.map((domain) => ({
