@@ -1,5 +1,3 @@
-// app/sitemap.ts
-
 import type { MetadataRoute } from "next";
 
 const BASE_URL =
@@ -14,7 +12,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })
   );
 
-  // High-value sample domains
+  // High-value sample domain reports
   const sampleDomains = [
     "reddit.com",
     "github.com",
@@ -33,5 +31,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: new Date(),
   }));
 
-  return [...staticRoutes, ...reportRoutes];
+  // Benchmark pages
+  const benchmarkRoutes: MetadataRoute.Sitemap = [
+    {
+      url: `${BASE_URL}/benchmarks/ai-startups`,
+      lastModified: new Date(),
+    },
+    {
+      url: `${BASE_URL}/benchmarks/saas`,
+      lastModified: new Date(),
+    },
+  ];
+
+  // FINAL RETURN
+  return [...staticRoutes, ...reportRoutes, ...benchmarkRoutes];
 }
