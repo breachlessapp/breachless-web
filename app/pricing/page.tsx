@@ -13,8 +13,8 @@ export default function PricingPage() {
         </div>
 
         <div className="relative z-10 space-y-8">
-          {/* Top bar / logo + back link */}
-          <header className="flex items-center justify-between gap-3">
+          {/* Header */}
+          <header className="mb-6 flex items-center justify-between gap-3">
             <div className="flex items-center gap-3">
               <div className="h-9 w-9 rounded-full bg-gradient-to-tr from-blue-500 via-cyan-400 to-emerald-400 p-[2px] shadow-lg shadow-blue-500/60">
                 <div className="h-full w-full rounded-full bg-slate-950 flex items-center justify-center">
@@ -31,14 +31,24 @@ export default function PricingPage() {
               </div>
             </div>
 
-            <nav className="flex items-center gap-4 text-xs text-slate-300">
-              <Link
-                href="/"
-                className="rounded-full border border-slate-700 bg-slate-950/60 px-3 py-1 hover:border-slate-500 hover:text-slate-100 transition"
-              >
-                ← Back to audit
-              </Link>
-            </nav>
+            <div className="flex items-center gap-3">
+              <div className="hidden sm:inline-flex items-center gap-2 rounded-full border border-slate-700 bg-slate-900/70 px-3 py-1 text-[11px] text-slate-300 backdrop-blur">
+                <span className="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.9)]" />
+                <span>Instant, self-serve security insights</span>
+              </div>
+
+              <nav className="flex items-center gap-3 text-[11px] text-slate-300">
+                <Link href="/" className="hover:text-slate-50 transition">
+                  Home
+                </Link>
+                <Link
+                  href="/pricing"
+                  className="rounded-full border border-slate-700 bg-slate-950/70 px-3 py-1 hover:border-slate-500 hover:text-slate-50 transition"
+                >
+                  Pricing
+                </Link>
+              </nav>
+            </div>
           </header>
 
           {/* Heading */}
