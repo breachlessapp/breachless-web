@@ -1,7 +1,8 @@
 // Breachless frontend UI
 "use client";
-
+import Link from "next/link";
 import { useState } from "react";
+
 
 type AuditSummary = {
   total_headers_checked: number;
@@ -65,7 +66,7 @@ export default function HomePage() {
 
         <div className="relative z-10 space-y-8">
           {/* Top bar / logo */}
-          <header className="flex items-center justify-between gap-3">
+          <header className="mb-6 flex items-center justify-between gap-3">
   <div className="flex items-center gap-3">
     <div className="h-9 w-9 rounded-full bg-gradient-to-tr from-blue-500 via-cyan-400 to-emerald-400 p-[2px] shadow-lg shadow-blue-500/60">
       <div className="h-full w-full rounded-full bg-slate-950 flex items-center justify-center">
@@ -87,14 +88,24 @@ export default function HomePage() {
       <span className="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.9)]" />
       <span>Instant, self-serve security insights</span>
     </div>
-    <a
-      href="/pricing"
-      className="rounded-full border border-slate-700 bg-slate-950/70 px-3 py-1 text-[11px] text-slate-200 hover:border-slate-500 hover:text-slate-50 transition"
-    >
-      Pricing
-    </a>
+
+    <nav className="flex items-center gap-3 text-[11px] text-slate-300">
+      <Link
+        href="/"
+        className="hover:text-slate-50 transition"
+      >
+        Home
+      </Link>
+      <Link
+        href="/pricing"
+        className="rounded-full border border-slate-700 bg-slate-950/70 px-3 py-1 hover:border-slate-500 hover:text-slate-50 transition"
+      >
+        Pricing
+      </Link>
+    </nav>
   </div>
 </header>
+
 
           {/* Main content grid */}
           <div className="grid gap-8 md:grid-cols-[minmax(0,3fr)_minmax(0,2.5fr)] items-start">
