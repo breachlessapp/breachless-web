@@ -316,6 +316,25 @@ export default function HomePage() {
                 <span className="italic text-slate-200">breachless</span> — with
                 automated audits instead of expensive consultants.
               </p>
+                  <footer className="mt-8 pt-4 border-t border-slate-800 text-[11px] text-slate-500 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+  <span>
+    © {new Date().getFullYear()} Breachless. Automated website security audits.
+  </span>
+  <div className="flex items-center gap-3">
+    <a
+      href="mailto:hello@breachless.app"
+      className="hover:text-slate-300 transition"
+    >
+      Contact
+    </a>
+    <a
+      href="/pricing"
+      className="hover:text-slate-300 transition"
+    >
+      Pricing
+    </a>
+  </div>
+</footer>
             </aside>
           </div>
         </div>
