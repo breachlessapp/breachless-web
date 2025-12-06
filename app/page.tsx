@@ -1,8 +1,8 @@
 // Breachless frontend UI
 "use client";
+
 import Link from "next/link";
 import { useState } from "react";
-
 
 type AuditSummary = {
   total_headers_checked: number;
@@ -16,6 +16,57 @@ type AuditResponse = {
   domain: string;
   summary: AuditSummary;
 };
+
+function normalizeDomain(raw: string): string {
+  const trimmed = raw.trim();
+  if (!trimmed) return "";
+
+  try {
+    const withProtocol = trimmed.startsWith("http")
+      ? trimmed
+      : `https://${trimmed}`;
+    const url = new URL(withProtocol);
+    return url.hostname;
+  } catch {
+    return trimmed;
+  }
+}
+
+// Shared scoring logic: compute numeric score and letter grade
+function computeScoreAndLetter(summary: AuditSummary): {
+  score: number;
+  letter: string;
+} {
+  let score = 100;
+
+  // Penalise invalid SSL heavily
+  if (!summary.ssl_valid) {
+    score -= 40;
+  }
+
+  if (summary.total_headers_checked > 0) {
+    const missingRatio =
+      summary.headers_missing / summary.total_headers_checked;
+    // Up to 40 points off for headers
+    score -= Math.round(missingRatio * 40);
+  } else {
+    // No headers checked at all → suspicious
+    score -= 20;
+  }
+
+  // Clamp
+  if (score < 0) score = 0;
+  if (score > 100) score = 100;
+
+  let letter = "F";
+  if (score >= 90) letter = "A";
+  else if (score >= 75) letter = "B";
+  else if (score >= 60) letter = "C";
+  else if (score >= 40) letter = "D";
+  else letter = "F";
+
+  return { score, letter };
+}
 
 export default function HomePage() {
   const [domain, setDomain] = useState("");
@@ -31,30 +82,39 @@ export default function HomePage() {
     setError(null);
     setResult(null);
 
-    const trimmed = domain.trim();
-    if (!trimmed) {
+    const cleaned = normalizeDomain(domain);
+    if (!cleaned) {
       setError("Please enter a domain, e.g. example.com");
       return;
     }
 
+    setDomain(cleaned);
     setLoading(true);
     try {
-      const res = await fetch(`${API_BASE}/audit/${encodeURIComponent(trimmed)}`);
+      const res = await fetch(
+        `${API_BASE}/audit/${encodeURIComponent(cleaned)}`
+      );
       if (!res.ok) {
         throw new Error(`Server responded with ${res.status}`);
       }
       const data = await res.json();
       setResult(data);
     } catch (err: any) {
-      setError(err.message || "Something went wrong while running the audit.");
+      setError(
+        err?.message || "Something went wrong while running the audit."
+      );
     } finally {
       setLoading(false);
     }
   };
 
-  
-  const derivedScore = result?.summary.score ?? null;
-  const derivedLetter = result?.summary.letter_grade ?? undefined;
+  const computed =
+    result && result.summary
+      ? computeScoreAndLetter(result.summary)
+      : null;
+  const derivedScore = computed?.score ?? null;
+  const derivedLetter = computed?.letter ?? undefined;
+
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 flex items-center justify-center px-4 py-10">
       <div className="w-full max-w-5xl rounded-3xl border border-slate-800 bg-gradient-to-br from-slate-950 via-slate-950/95 to-slate-950/80 shadow-2xl shadow-slate-900/90 p-6 md:p-10 relative overflow-hidden">
@@ -67,45 +127,41 @@ export default function HomePage() {
         <div className="relative z-10 space-y-8">
           {/* Top bar / logo */}
           <header className="mb-6 flex items-center justify-between gap-3">
-  <div className="flex items-center gap-3">
-    <div className="h-9 w-9 rounded-full bg-gradient-to-tr from-blue-500 via-cyan-400 to-emerald-400 p-[2px] shadow-lg shadow-blue-500/60">
-      <div className="h-full w-full rounded-full bg-slate-950 flex items-center justify-center">
-        <div className="h-4 w-4 rounded-full border border-blue-300/70 shadow-[0_0_8px_rgba(59,130,246,0.9)]" />
-      </div>
-    </div>
-    <div className="flex flex-col leading-tight">
-      <span className="text-xs uppercase tracking-[0.22em] text-slate-300">
-        Breachless
-      </span>
-      <span className="text-[11px] text-slate-500">
-        Automated website security audit
-      </span>
-    </div>
-  </div>
+            <div className="flex items-center gap-3">
+              <div className="h-9 w-9 rounded-full bg-gradient-to-tr from-blue-500 via-cyan-400 to-emerald-400 p-[2px] shadow-lg shadow-blue-500/60">
+                <div className="h-full w-full rounded-full bg-slate-950 flex items-center justify-center">
+                  <div className="h-4 w-4 rounded-full border border-blue-300/70 shadow-[0_0_8px_rgba(59,130,246,0.9)]" />
+                </div>
+              </div>
+              <div className="flex flex-col leading-tight">
+                <span className="text-xs uppercase tracking-[0.22em] text-slate-300">
+                  Breachless
+                </span>
+                <span className="text-[11px] text-slate-500">
+                  Automated website security audit
+                </span>
+              </div>
+            </div>
 
-  <div className="flex items-center gap-3">
-    <div className="hidden sm:inline-flex items-center gap-2 rounded-full border border-slate-700 bg-slate-900/70 px-3 py-1 text-[11px] text-slate-300 backdrop-blur">
-      <span className="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.9)]" />
-      <span>Instant, self-serve security insights</span>
-    </div>
+            <div className="flex items-center gap-3">
+              <div className="hidden sm:inline-flex items-center gap-2 rounded-full border border-slate-700 bg-slate-900/70 px-3 py-1 text-[11px] text-slate-300 backdrop-blur">
+                <span className="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.9)]" />
+                <span>Instant, self-serve security insights</span>
+              </div>
 
-    <nav className="flex items-center gap-3 text-[11px] text-slate-300">
-      <Link
-        href="/"
-        className="hover:text-slate-50 transition"
-      >
-        Home
-      </Link>
-      <Link
-        href="/pricing"
-        className="rounded-full border border-slate-700 bg-slate-950/70 px-3 py-1 hover:border-slate-500 hover:text-slate-50 transition"
-      >
-        Pricing
-      </Link>
-    </nav>
-  </div>
-</header>
-
+              <nav className="flex items-center gap-3 text-[11px] text-slate-300">
+                <Link href="/" className="hover:text-slate-50 transition">
+                  Home
+                </Link>
+                <Link
+                  href="/pricing"
+                  className="rounded-full border border-slate-700 bg-slate-950/70 px-3 py-1 hover:border-slate-500 hover:text-slate-50 transition"
+                >
+                  Pricing
+                </Link>
+              </nav>
+            </div>
+          </header>
 
           {/* Main content grid */}
           <div className="grid gap-8 md:grid-cols-[minmax(0,3fr)_minmax(0,2.5fr)] items-start">
@@ -113,12 +169,12 @@ export default function HomePage() {
             <section className="space-y-5">
               <div>
                 <h1 className="text-3xl md:text-4xl font-semibold tracking-tight text-slate-50">
-                  Your website’s security,{" "}
+                  Your website’s security{" "}
                   <span className="text-blue-400">in minutes.</span>
                 </h1>
                 <p className="mt-3 text-sm md:text-[15px] text-slate-400 max-w-xl">
-                  Breachless runs an automated security audit on your website —
-                  checking SSL, security headers and basic misconfigurations —
+                  Breachless runs an automated security audit on your website,
+                  checking SSL, security headers and basic misconfigurations,
                   and turns it into a clear, human-readable report.
                 </p>
               </div>
@@ -176,7 +232,8 @@ export default function HomePage() {
                       <span className="mr-1 text-amber-300 drop-shadow-[0_0_6px_rgba(252,211,77,0.9)]">
                         ★★★★★
                       </span>
-                      Early users report feeling “confident” shipping new releases.
+                      Early users report feeling “confident” shipping new
+                      releases.
                     </span>
                   </div>
 
@@ -196,21 +253,38 @@ export default function HomePage() {
                   <div className="text-xs text-slate-400">
                     {result ? (
                       <>
-                        Breachless security snapshot for{" "}
-                        <span className="font-medium text-slate-100">
-                          {result.domain}
-                        </span>
+                        <p className="uppercase tracking-[0.22em] text-slate-400">
+                          Breachless security snapshot
+                        </p>
+                        <p className="text-[12px] text-slate-300">
+                          for{" "}
+                          <span className="font-medium text-slate-100">
+                            {result.domain || domain}
+                          </span>
+                        </p>
                       </>
                     ) : (
                       <>Sample Breachless security snapshot</>
                     )}
                   </div>
-                  <div className="inline-flex items-center gap-2 rounded-full bg-emerald-500/10 px-3 py-1 text-[11px] text-emerald-200 border border-emerald-400/60">
-                    
-                    <span className="...">
-                      {result ? (derivedLetter ?? "C") : "A"}
-                    </span>
-                    <span>Overall score</span>
+
+                  <div className="flex flex-col items-end gap-1">
+                    <div className="inline-flex items-center gap-2 rounded-full bg-emerald-500/10 px-3 py-1 text-[11px] text-emerald-200 border border-emerald-400/60">
+                      <span className="font-semibold text-base leading-none">
+                        {result ? derivedLetter ?? "C" : "A"}
+                      </span>
+                      <span>Overall score</span>
+                    </div>
+                    {result && (
+                      <Link
+                        href={`/report/${encodeURIComponent(
+                          result.domain || domain
+                        )}`}
+                        className="inline-flex items-center rounded-full border border-blue-500/60 bg-blue-500/10 px-3 py-1 text-[11px] font-medium text-blue-100 hover:bg-blue-500/20 hover:border-blue-400 transition"
+                      >
+                        View full report
+                      </Link>
+                    )}
                   </div>
                 </div>
 
@@ -286,10 +360,12 @@ export default function HomePage() {
                       <p className="text-[11px] text-slate-300">
                         Your current setup scored{" "}
                         <span className="font-semibold text-slate-50">
-                          {result ? (derivedLetter ?? "C") : "A"}
-                          {derivedScore !== null ? ` (${derivedScore}/100)` : ""}
+                          {derivedLetter ?? "C"}
+                          {derivedScore !== null
+                            ? ` (${derivedScore}/100)`
+                            : ""}
                         </span>
-                        . We’ve prioritised a short checklist of fixes your
+                        . We have prioritised a short checklist of fixes your
                         team can handle in a single sprint.
                       </p>
                     </>
@@ -302,7 +378,7 @@ export default function HomePage() {
                         </span>
                       </div>
                       <p className="text-[11px] text-slate-300">
-                        You’ll see a high-level summary of SSL, HTTPS and
+                        You will see a high-level summary of SSL, HTTPS and
                         security headers here, plus a focused list of changes
                         to make your site safer without overloading your team.
                       </p>
@@ -313,28 +389,9 @@ export default function HomePage() {
 
               <p className="text-[11px] text-slate-500">
                 Breachless helps startups and small businesses launch and grow{" "}
-                <span className="italic text-slate-200">breachless</span> — with
+                <span className="italic text-slate-200">breachless</span>, with
                 automated audits instead of expensive consultants.
               </p>
-                  <footer className="mt-8 pt-4 border-t border-slate-800 text-[11px] text-slate-500 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-  <span>
-    © {new Date().getFullYear()} Breachless. Automated website security audits.
-  </span>
-  <div className="flex items-center gap-3">
-    <a
-      href="mailto:hello@breachless.app"
-      className="hover:text-slate-300 transition"
-    >
-      Contact
-    </a>
-    <a
-      href="/pricing"
-      className="hover:text-slate-300 transition"
-    >
-      Pricing
-    </a>
-  </div>
-</footer>
             </aside>
           </div>
         </div>
