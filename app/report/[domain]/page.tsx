@@ -1,6 +1,7 @@
 // app/report/[domain]/page.tsx
 
 import React from "react";
+import type { Metadata } from "next";
 
 type Summary = {
   total_headers_checked: number;
@@ -73,7 +74,28 @@ async function getAudit(domain: string): Promise<AuditResponse | null> {
   }
 }
 
-// ✅ Note: params is now a Promise in Next 16
+// 🔹 SEO metadata per domain
+export async function generateMetadata(
+  props: { params: Promise<{ domain: string }> }
+): Promise<Metadata> {
+  const { domain: rawDomain } = await props.params;
+  const domain = decodeURIComponent(rawDomain || "");
+
+  if (!domain || domain === "undefined") {
+    return {
+      title: "Breachless Security Report",
+      description:
+        "Automated website security audit: SSL, HTTPS, and core security headers.",
+    };
+  }
+
+  return {
+    title: `${domain} Security Report – Breachless`,
+    description: `Live security snapshot for ${domain}: SSL validity, expiry, and key security headers (CSP, HSTS, X-Frame-Options, Referrer-Policy and more).`,
+  };
+}
+
+// ✅ Next 16: params is a Promise
 export default async function ReportPage(props: {
   params: Promise<{ domain: string }>;
 }) {
