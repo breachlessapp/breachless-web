@@ -146,11 +146,13 @@ export default function PricingPage() {
 
               <div className="relative z-10 mt-auto space-y-2 text-xs text-slate-300">
                 <a
-                  href="mailto:hello@breachless.app?subject=Breachless%20Pro%20waitlist"
-                  className="inline-flex w-full items-center justify-center rounded-full bg-gradient-to-r from-blue-500 to-blue-600 px-4 py-2.5 text-xs font-medium text-white shadow-lg shadow-blue-500/60 hover:brightness-110 transition"
-                >
-                  Join Pro waitlist
-                </a>
+  href="https://buy.stripe.com/aFa28t63y3KD18IbJ34gg00"
+  target="_blank"
+  rel="noreferrer"
+  className="inline-flex w-full items-center justify-center rounded-full bg-gradient-to-r from-blue-500 to-blue-600 px-4 py-2.5 text-xs font-medium text-white shadow-lg shadow-blue-500/60 hover:brightness-110 transition"
+>
+  Upgrade to Breachless Pro
+</a>
                 <p className="text-[11px] text-slate-400">
                   No pressure, no demo calls — just an email when Pro is ready,
                   with early adopter pricing.
