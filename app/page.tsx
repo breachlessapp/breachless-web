@@ -32,6 +32,7 @@ function normalizeDomain(raw: string): string {
   }
 }
 
+
 // Shared scoring logic: compute numeric score and letter grade
 function computeScoreAndLetter(summary: AuditSummary): {
   score: number;
@@ -68,11 +69,13 @@ function computeScoreAndLetter(summary: AuditSummary): {
   return { score, letter };
 }
 
+
 export default function HomePage() {
   const [domain, setDomain] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<AuditResponse | null>(null);
+
 
   // 🔗 Your live backend API on Render
   const API_BASE = "https://breachless-api.onrender.com";
