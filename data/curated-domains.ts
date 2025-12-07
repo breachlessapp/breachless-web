@@ -59,4 +59,83 @@ export const curatedDomains = [
     label: "IMDb",
     notes: "Missing CSP and HSTS — frequently fails.",
   },
+  {
+  domain: "midjourney.com",
+  label: "Midjourney",
+  category: "ai",
+  notes: "Popular AI tool, often minimal headers."
+},
+{
+  domain: "claude.ai",
+  label: "Claude / Anthropic",
+  category: "ai",
+  notes: "Security headers vary by region."
+},
+{
+  domain: "perplexity.ai",
+  label: "Perplexity AI",
+  category: "ai",
+  notes: "Very high growth; good SEO target."
+},
+{
+  domain: "runwayml.com",
+  label: "Runway ML",
+  category: "ai",
+  notes: "Creative AI; header score typically C or D."
+},
+{
+  domain: "character.ai",
+  label: "Character AI",
+  category: "ai",
+  notes: "Weak CSP; common SEO query target."
+},
+{
+  domain: "coinmarketcap.com",
+  label: "CoinMarketCap",
+  category: "finance",
+  notes: "Weak CSP; large search volume."
+},
+{
+  domain: "kraken.com",
+  label: "Kraken Exchange",
+  category: "finance",
+  notes: "SSL strong; missing modern headers."
+},
+{
+  domain: "sofi.com",
+  label: "SoFi",
+  category: "finance",
+  notes: "Popular fintech; header score usually D."
+},
+{
+  domain: "venmo.com",
+  label: "Venmo",
+  category: "finance",
+  notes: "Missing Permissions-Policy."
+},
+{
+  domain: "mint.com",
+  label: "Mint",
+  category: "finance",
+  notes: "Good SSL, weak header setup."
+},
+{
+  domain: "weebly.com",
+  label: "Weebly",
+  category: "general",
+  notes: "Historically poor security headers (F/D)."
+},
+{
+  domain: "godaddy.com",
+  label: "GoDaddy",
+  category: "general",
+  notes: "Large audience; header score often D."
+},
+{
+  domain: "quora.com",
+  label: "Quora",
+  category: "general",
+  notes: "Missing key policies; great SEO target."
+}
+
 ];

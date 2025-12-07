@@ -188,22 +188,31 @@ export default async function AiBenchmarksPage() {
             </div>
 
             <nav className="flex items-center gap-3 text-[11px] text-slate-300">
-              <Link href="/" className="hover:text-slate-50 transition">
-                Home
-              </Link>
-              <Link
-                href="/pricing"
-                className="rounded-full border border-slate-700 bg-slate-950/70 px-3 py-1 hover:border-slate-500 hover:text-slate-50 transition"
-              >
-                Pricing
-              </Link>
-              <Link
-                href="/reports"
-                className="rounded-full border border-slate-700 bg-slate-950/70 px-3 py-1 hover:border-slate-500 hover:text-slate-50 transition"
-              >
-                Reports
-              </Link>
-            </nav>
+  <Link href="/" className="hover:text-slate-50 transition">
+    Home
+  </Link>
+
+  <Link
+    href="/pricing"
+    className="rounded-full border border-slate-700 bg-slate-950/70 px-3 py-1 hover:border-slate-500 hover:text-slate-50 transition"
+  >
+    Pricing
+  </Link>
+
+  <Link
+    href="/reports"
+    className="rounded-full border border-slate-700 bg-slate-950/70 px-3 py-1 hover:border-slate-500 hover:text-slate-50 transition"
+  >
+    Reports
+  </Link>
+
+  <Link
+    href="/benchmarks/ai-startups"
+    className="rounded-full border border-blue-700 bg-slate-950/70 px-3 py-1 hover:border-blue-500 hover:text-slate-50 transition"
+  >
+    AI Benchmarks
+  </Link>
+</nav>
           </header>
 
           {/* Intro */}
