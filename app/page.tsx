@@ -148,18 +148,34 @@ export default function HomePage() {
               </div>
 
               <nav className="flex items-center gap-3 text-[11px] text-slate-300">
-                <Link href="/" className="hover:text-slate-50 transition">
-                  Home
-                </Link>
-                <Link
-                  href="/pricing"
-                  className="rounded-full border border-slate-700 bg-slate-950/70 px-3 py-1 hover:border-slate-500 hover:text-slate-50 transition"
-                >
-                  Pricing
-                </Link>
-              </nav>
+  <Link href="/" className="hover:text-slate-50 transition">
+    Home
+  </Link>
+
+  <Link
+    href="/pricing"
+    className="rounded-full border border-slate-700 bg-slate-950/70 px-3 py-1 hover:border-slate-500 hover:text-slate-50 transition"
+  >
+    Pricing
+  </Link>
+
+  <Link
+    href="/reports"
+    className="rounded-full border border-slate-700 bg-slate-950/70 px-3 py-1 hover:border-slate-500 hover:text-slate-50 transition"
+  >
+    Reports
+  </Link>
+
+  <Link
+    href="/benchmarks/ai-startups"
+    className="rounded-full border border-blue-700 bg-slate-950/70 px-3 py-1 hover:border-blue-500 hover:text-slate-50 transition"
+  >
+    AI Benchmarks
+  </Link>
+</nav>
             </div>
           </header>
+           
 
           {/* Main content grid */}
           <div className="grid gap-8 md:grid-cols-[minmax(0,3fr)_minmax(0,2.5fr)] items-start">
@@ -440,6 +456,15 @@ export default function HomePage() {
               posture and catch easy-to-fix issues before they become real
               risks.
             </p>
+            <div className="mt-4">
+              
+              <Link
+                href="/benchmarks/ai-startups"
+                className="text-blue-400 underline hover:text-blue-300 text-sm"
+                >
+                See AI startup security benchmarks →
+             </Link>
+           </div>
 
             <div className="mt-6">
               <Link

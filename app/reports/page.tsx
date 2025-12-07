@@ -33,8 +33,54 @@ export default function ReportsIndexPage() {
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 flex items-center justify-center px-4 py-10">
       <div className="w-full max-w-4xl rounded-3xl border border-slate-800 bg-slate-950/90 p-6 md:p-8 shadow-2xl shadow-slate-900/90">
-        {/* Header */}
-        <header className="mb-6">
+        {/* Top header with logo + nav */}
+        <header className="mb-6 flex items-center justify-between gap-3">
+          <div className="flex items-center gap-3">
+            <div className="h-9 w-9 rounded-full bg-gradient-to-tr from-blue-500 via-cyan-400 to-emerald-400 p-[2px] shadow-lg shadow-blue-500/60">
+              <div className="h-full w-full rounded-full bg-slate-950 flex items-center justify-center">
+                <div className="h-4 w-4 rounded-full border border-blue-300/70 shadow-[0_0_8px_rgba(59,130,246,0.9)]" />
+              </div>
+            </div>
+            <div className="flex flex-col leading-tight">
+              <span className="text-xs uppercase tracking-[0.22em] text-slate-300">
+                Breachless
+              </span>
+              <span className="text-[11px] text-slate-500">
+                Automated website security audit
+              </span>
+            </div>
+          </div>
+
+          <nav className="flex items-center gap-3 text-[11px] text-slate-300">
+            <Link href="/" className="hover:text-slate-50 transition">
+              Home
+            </Link>
+
+            <Link
+              href="/pricing"
+              className="rounded-full border border-slate-700 bg-slate-950/70 px-3 py-1 hover:border-slate-500 hover:text-slate-50 transition"
+            >
+              Pricing
+            </Link>
+
+            <Link
+              href="/reports"
+              className="rounded-full border border-slate-700 bg-slate-950/70 px-3 py-1 hover:border-slate-500 hover:text-slate-50 transition"
+            >
+              Reports
+            </Link>
+
+            <Link
+              href="/benchmarks/ai-startups"
+              className="rounded-full border border-blue-700 bg-slate-950/70 px-3 py-1 hover:border-blue-500 hover:text-slate-50 transition"
+            >
+              AI Benchmarks
+            </Link>
+          </nav>
+        </header>
+
+        {/* Page intro */}
+        <section className="mb-6">
           <p className="text-xs uppercase tracking-[0.22em] text-slate-400">
             Breachless security reports
           </p>
@@ -47,7 +93,7 @@ export default function ReportsIndexPage() {
             quick signal on basic web security posture. Click any site below to
             view its full Breachless report.
           </p>
-        </header>
+        </section>
 
         {/* Category sections */}
         <div className="space-y-6">
