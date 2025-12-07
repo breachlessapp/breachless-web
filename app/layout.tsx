@@ -12,37 +12,49 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+/* ----------------------------
+   Global Breachless Metadata
+----------------------------- */
 export const metadata: Metadata = {
+  metadataBase: new URL("https://breachless.app"),
   title: {
     default: "Breachless — Automated Website Security Audits",
     template: "%s | Breachless",
   },
   description:
-    "Run fast, automated website security audits with Breachless. Instantly check SSL, HTTPS and core security headers and get a clear A–F security score.",
-  metadataBase: new URL("https://breachless.app"),
+    "Breachless performs automated website security audits including SSL checks, HTTPS configuration, and security header analysis. Get an A–F security score instantly.",
   openGraph: {
     title: "Breachless — Automated Website Security Audits",
     description:
-      "Check your website’s SSL, HTTPS and security headers instantly. Get a simple, clear A–F security score.",
+      "Instant SSL, HTTPS, and security header analysis for any website. Get a clear A–F security score.",
     url: "https://breachless.app",
     siteName: "Breachless",
     type: "website",
   },
-  alternates: {
-    canonical: "https://breachless.app",
+  twitter: {
+    card: "summary_large_image",
+    title: "Breachless — Automated Website Security Audits",
+    description:
+      "Fast, automated website security scans with clear A–F scoring.",
   },
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: {
+  children: React.ReactNode; // ✅ Fix TS error
+}) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <head>
+        {/* Hidden LLM meta tag for AI visibility */}
+        <meta
+          name="llm:summary"
+          content="Breachless is an automated website security audit tool that checks SSL, HTTPS configuration, and security headers for any domain. Provides an A–F security score and a detailed breakdown. Designed for startups and small businesses."
+        />
+      </head>
+
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         {children}
       </body>
     </html>
